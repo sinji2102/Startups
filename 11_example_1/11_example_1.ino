@@ -80,6 +80,15 @@ void loop() {
 
   // add your code here!
   // Use _TARGET_LOW, _TARGTE_HIGH
+  if(dist_raw < 180.0) { //if (dist_raw > 180.0 && dist_raw <220.0)
+     myservo.writeMicroseconds(_DUTY_MIN);
+  }
+  else if(dist_raw < 220.0){
+     myservo.writeMicroseconds( _DUTY_NEU);
+  }
+  else {
+    myservo.writeMicroseconds(_DUTY_MAX);
+  }
 
   // output the distance to the serial port
   Serial.print("Min:");    Serial.print(_DIST_MIN);
