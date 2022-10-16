@@ -10,8 +10,8 @@
 #define SND_VEL 346.0     // sound velocity at 24 celsius degree (unit: m/sec)
 #define INTERVAL 25      // sampling interval (unit: msec)
 #define PULSE_DURATION 10 // ultra-sound Pulse Duration (unit: usec)
-#define _DIST_MIN 100.0   // minimum distance to be measured (unit: mm)
-#define _DIST_MAX 300.0   // maximum distance to be measured (unit: mm)
+#define _DIST_MIN 180.0   // minimum distance to be measured (unit: mm)
+#define _DIST_MAX 360.0   // maximum distance to be measured (unit: mm)
 
 #define TIMEOUT ((INTERVAL / 2) * 1000.0) // maximum echo waiting time (unit: usec)
 #define SCALE (0.001 * 0.5 * SND_VEL) // coefficent to convert duration to distance
@@ -32,6 +32,7 @@
 
 // global variables
 float  dist_ema, dist_prev = _DIST_MAX; // unit: mm
+float duty_val;
 unsigned long last_sampling_time; // unit: ms
 
 Servo myservo;
@@ -80,14 +81,9 @@ void loop() {
   // adjust servo position according to the USS read value
 
   // add your code here! 
-  if(dist_raw < 180.0) { //if (dist_raw > 180.0 && dist_raw <220.0)
-     myservo.writeMicroseconds(_DUTY_MIN);
-  }
-  else if(dist_raw < 220.0){
-     myservo.writeMicroseconds( _DUTY_NEU);
-  }
-  else {
-    myservo.writeMicroseconds(_DUTY_MAX);
+  if (dist_raw > _DIST_MIN && dist_raw < _DIST_MAX){
+    duty_val = _DUTY_MIN + (dist_ema-180)*((_DUTY_MAX-_DUTY_MIN)/180);
+    myservo.writeMicroseconds(duty_val);
   }
 
   // output the distance to the serial port
