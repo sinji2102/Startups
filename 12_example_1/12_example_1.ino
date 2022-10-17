@@ -38,12 +38,12 @@ void setup() {
   // convert angular speed into duty change per interval.
   // Next two lines are WRONG. you have to modify.
   duty_change_per_interval = 
-    (_DUTY_MAX - _DUTY_MIN) * (_SERVO_SPEED / 180) * (INTERVAL / 1000);
+    (_DUTY_MAX - _DUTY_MIN) * (_SERVO_SPEED / 180.0) * (INTERVAL / 1000.0);
 
   // remove 'while(1) { }' lines after modify 
   Serial.print("duty_change_per_interval:");
   Serial.println(duty_change_per_interval);
-  while (1) { }
+//  while (1) { }
 
   // initialize variables for servo update.
   toggle_interval = (180.0 / _SERVO_SPEED) * 1000 / INTERVAL;
