@@ -22,7 +22,7 @@
 
 #define _INTERVAL_DIST    20 // USS interval (unit: msec) - 숫자 높을수록 초음파 센서가 느려짐
 #define _INTERVAL_SERVO   20 // servo interval (unit: msec) - 숫자 높을수록 정밀함이 떨어짐 >> 한 번에 많이 움직임
-#define _INTERVAL_SERIAL  20 // serial interval (unit: msec) - 숫자 높을수록 값 찍히는 속도가 느려짐?... 상관없는 듯 진짜 모르겠음
+#define _INTERVAL_SERIAL  20 // serial interval (unit: msec) - 숫자 높을수록 값 찍히는 속도가 느려짐?... 상관없는 서보모터에는 큰 영향 없고 모니터에 찍히는 것만 영향 있는 듯
 
 #define TIMEOUT ((_INTERVAL_DIST / 2) * 1000.0) // maximum echo waiting time (unit: usec)
 #define SCALE (0.001 * 0.5 * SND_VEL) // coefficent to convert duration to distance
