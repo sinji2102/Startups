@@ -61,19 +61,19 @@ void loop() {
   // wait until next event time
   if(time_curr >= (last_sampling_time_dist + _INTERVAL_DIST)) {
         last_sampling_time_dist += _INTERVAL_DIST;
-        event_dist = ???;
+        event_dist = true;
   }
   if(time_curr >= (last_sampling_time_servo + _INTERVAL_SERVO)) {
         last_sampling_time_servo += _INTERVAL_SERVO;
-        event_servo = ???;
+        event_servo = true;
   }
   if(time_curr >= (last_sampling_time_serial + _INTERVAL_SERIAL)) {
         last_sampling_time_serial += _INTERVAL_SERIAL;
-        event_serial = ???;
+        event_serial = true;
   }
     
   if(event_dist) {
-    event_dist = ???;
+    event_dist = false;
     // get a distance reading from the USS
     dist_raw = USS_measure(PIN_TRIG, PIN_ECHO);
     // Apply range filter
@@ -84,7 +84,7 @@ void loop() {
   }
   
   if(event_servo) {
-    event_servo = ???;
+    event_servo = false;
     // adjust servo position according to the USS read value
     if (dist_raw < _TARGET_LOW)
         myservo.writeMicroseconds(_DUTY_MIN);
@@ -95,7 +95,7 @@ void loop() {
   }
   
   if(event_serial) {
-    event_serial = ???;
+    event_serial = false;
     // output the read values to the serial port
     Serial.print("Min:");    Serial.print(_DIST_MIN);
     Serial.print(",Low:");   Serial.print(_TARGET_LOW);
