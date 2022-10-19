@@ -20,9 +20,9 @@
 #define _TARGET_LOW  180.0
 #define _TARGET_HIGH 220.0
 
-#define _INTERVAL_DIST    ??? // USS interval (unit: msec)
-#define _INTERVAL_SERVO   ??? // servo interval (unit: msec)
-#define _INTERVAL_SERIAL  ??? // serial interval (unit: msec)
+#define _INTERVAL_DIST    20 // USS interval (unit: msec)
+#define _INTERVAL_SERVO   20 // servo interval (unit: msec)
+#define _INTERVAL_SERIAL  20 // serial interval (unit: msec)
 
 #define TIMEOUT ((_INTERVAL_DIST / 2) * 1000.0) // maximum echo waiting time (unit: usec)
 #define SCALE (0.001 * 0.5 * SND_VEL) // coefficent to convert duration to distance
