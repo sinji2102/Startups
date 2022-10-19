@@ -11,7 +11,7 @@
 #define _POS_START (_DUTY_MIN + 100)    // servo start position
 #define _POS_END   (_DUTY_MAX - 100)    // servo end position
 
-#define _SERVO_SPEED 30 // servo speed limit (unit: degree/second)  // min: 5 max: 880
+#define _SERVO_SPEED 30 // servo angular speed (unit: degree/sec)
 #define INTERVAL 20     // servo update interval (unit: msec)
 
 // global variables
@@ -19,7 +19,6 @@ unsigned long last_sampling_time; // unit: msec
 
 Servo myservo;
 
-// servo 스피드가 최소보다 작아지면 duty_change_per_interval이 0이 나오고 최대일 때 180이 나옴
 int duty_change_per_interval; // maximum duty difference per interval
 int duty_target;    // Target duty time
 int duty_curr;      // Current duty time
@@ -36,15 +35,16 @@ void setup() {
   // initialize serial port
   Serial.begin(57600);
 
-  // convert angular speed into duty change per interval.
-  // Next two lines are WRONG. you have to modify.
+  // convert angular velocity into duty change per interval.
+  // duty_change_per_interval = 
+  //  (_DUTY_MAX - _DUTY_MIN) * (_SERVO_SPEED / 180) * (INTERVAL / 1000);
   duty_change_per_interval = 
-    (_DUTY_MAX - _DUTY_MIN) * (_SERVO_SPEED / 180.0) * (INTERVAL / 1000.0);
-
-  // remove 'while(1) { }' lines after modify 
+    (float)(_DUTY_MAX - _DUTY_MIN) * (_SERVO_SPEED / 180.0) * (INTERVAL / 1000.0);
+  
+  // remove next three lines after finding answers
   Serial.print("duty_change_per_interval:");
   Serial.println(duty_change_per_interval);
-//  while (1) { }
+  //  while (1) { }
 
   // initialize variables for servo update.
   toggle_interval = (180.0 / _SERVO_SPEED) * 1000 / INTERVAL;
