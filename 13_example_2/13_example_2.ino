@@ -20,9 +20,9 @@
 #define _TARGET_LOW  180.0
 #define _TARGET_HIGH 220.0
 
-#define _INTERVAL_DIST    20 // USS interval (unit: msec)
-#define _INTERVAL_SERVO   20 // servo interval (unit: msec)
-#define _INTERVAL_SERIAL  20 // serial interval (unit: msec)
+#define _INTERVAL_DIST    20 // USS interval (unit: msec) - 숫자 높을수록 초음파 센서가 느려짐
+#define _INTERVAL_SERVO   20 // servo interval (unit: msec) - 숫자 높을수록 정밀함이 떨어짐 >> 한 번에 많이 움직임
+#define _INTERVAL_SERIAL  20 // serial interval (unit: msec) - 숫자 높을수록 값 찍히는 속도가 느려짐?... 상관없는 듯 진짜 모르겠음
 
 #define TIMEOUT ((_INTERVAL_DIST / 2) * 1000.0) // maximum echo waiting time (unit: usec)
 #define SCALE (0.001 * 0.5 * SND_VEL) // coefficent to convert duration to distance
@@ -51,7 +51,8 @@ void setup() {
   myservo.writeMicroseconds(_DUTY_NEU);
   
   // initialize serial port
-  Serial.begin(57600);  
+  Serial.begin(57600);  // 숫자 늘릴수록 빨라짐 >> 전체적인 속도가 빨라짐
+  00
 }
   
 void loop() {
