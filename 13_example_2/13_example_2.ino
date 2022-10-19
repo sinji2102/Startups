@@ -20,9 +20,9 @@
 #define _TARGET_LOW  180.0
 #define _TARGET_HIGH 220.0
 
-#define _INTERVAL_DIST    20 // USS interval (unit: msec) - 숫자 높을수록 초음파 센서가 느려짐
+#define _INTERVAL_DIST    20 // USS interval (unit: msec) - 숫자 높을수록 초음파 센서가 느려짐... 불안정함
 #define _INTERVAL_SERVO   20 // servo interval (unit: msec) - 숫자 높을수록 정밀함이 떨어짐 >> 한 번에 많이 움직임
-#define _INTERVAL_SERIAL  20 // serial interval (unit: msec) - 숫자 높을수록 값 찍히는 속도가 느려짐?... 상관없는 서보모터에는 큰 영향 없고 모니터에 찍히는 것만 영향 있는 듯
+#define _INTERVAL_SERIAL  20 // serial interval (unit: msec) - 숫자 높을수록 값 찍히는 속도가 느려짐?... 상관없는 서보모터에는 큰 영향 없고 모니터에 찍히는 것만 영향 있는 듯 
 
 #define TIMEOUT ((_INTERVAL_DIST / 2) * 1000.0) // maximum echo waiting time (unit: usec)
 #define SCALE (0.001 * 0.5 * SND_VEL) // coefficent to convert duration to distance
@@ -93,7 +93,9 @@ void loop() {
     else
         myservo.writeMicroseconds(_DUTY_NEU);
   }
-  
+
+  // 시리얼 포트에 값을 보내고 다음 코드가 실행되도록 로직이 짜여있기 때문에 시리얼 포트에 값을 보내는 속도가 느려지면 다음 코드가 실행되는 텀이 길어짐
+  // 이서준 왜 자꾸 내 거 베끼냐
   if(event_serial) {
     event_serial = false;
     // output the read values to the serial port
