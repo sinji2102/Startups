@@ -15,7 +15,3 @@ void loop() {
     delay(100);
     i = i + 1;
   }
-  while(1){
-    
-  }
-}
