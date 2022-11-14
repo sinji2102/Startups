@@ -24,7 +24,7 @@ void setup()
     int incomingByte;
     while (Serial.available() == 0) {}
     incomingByte = Serial.read();
-    filtered = ir_sensor_filtered(5, x, 1);
+    filtered = ir_sensor_filtered(100, 0.5, 1);
   }
 }
 
