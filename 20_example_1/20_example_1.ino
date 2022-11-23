@@ -20,13 +20,14 @@ void setup()
 void loop()
 {
   // Wait for serial input
-  int incomingByte;
-  while (Serial.available() == 0) {}
-  incomingByte = Serial.read();
+//  int incomingByte;
+//  while (Serial.available() == 0) {}
+//  incomingByte = Serial.read();
   
   // Take a median value from multiple measurements
-  filtered = ir_sensor_filtered(n, 0.5); // Replace n with your desired value
+  filtered = ir_sensor_filtered(100, 0.5); // Replace n with your desired value
   Serial.print("FLT:"); Serial.println(filtered);
+  while(1){}
 }
 
 unsigned int ir_sensor_filtered(unsigned int n, float position)
