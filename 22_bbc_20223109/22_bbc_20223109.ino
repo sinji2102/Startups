@@ -16,13 +16,15 @@
                           // Setting _EMA_ALPHA to 0 effectively disables EMA filter.
 
 // Servo adjustment
-#define _DUTY_MAX 2500  // Servo angle: D degree
-#define _DUTY_NEU 1500  // Servo angle: 0 degree
-#define _DUTY_MIN 500   // Servo angle: E degree
-#define _SERVO_ANGLE_DIFF 90 // Replace with |D - E| degree
+#define _DUTY_MAX 2250  // Servo angle: D degree
+#define _DUTY_NEU 1300  // Servo angle: 0 degree
+#define _DUTY_MIN 690   // Servo angle: E degree
+#define _SERVO_ANGLE_DIFF 60 // Replace with |D - E| degree
 #define _SERVO_SPEED 1000 // servo speed limit (unit: degree/second)
 
-#define _BANGBANG_RANGE 150
+//#define _BANGBANG_RANGE 150
+#define _BANGBANG_RANGE_UP 300
+#define _BANGBANG_RANGE_DOWN 400
 
 // global variables
 float dist_filtered, dist_ema, dist_target; // unit: mm
@@ -81,12 +83,12 @@ void loop() {
     dist_ema = _EMA_ALPHA * dist_ema + (1.0 - _EMA_ALPHA) * dist_filtered;
 
     // bang bang control
-    if(1) { // Replace 1 with a proper test expression using dist_target and dist_ema.
-      duty_target = _DUTY_NEU; // Complete this line using _BANGBANG_RANGE.
+    if(dist_target > dist_ema) { // Replace 1 with a proper test expression using dist_target and dist_ema.
+      duty_target = _DUTY_NEU + _BANGBANG_RANGE_DOWN; // Complete this line using _BANGBANG_RANGE.
       digitalWrite(PIN_LED, 0);
     }
     else {
-      duty_target = _DUTY_NEU; // Complete this line using _BANGBANG_RANGE.
+      duty_target = _DUTY_NEU - _BANGBANG_RANGE_UP; // Complete this line using _BANGBANG_RANGE.
       digitalWrite(PIN_LED, 1);
     }
   }
@@ -122,7 +124,7 @@ void loop() {
 float volt_to_distance(int a_value)
 {
 // Replace the below line with the equation obtained from nonlinear regression analysis
-  return (6762.0 / (a_value - 9) - 4.0) * 10.0;
+  return 457 + 0.0939 * a_value - 0.0087 * pow(a_value, 2) + 0.0000217 * pow(a_value, 3) - 0.0000000157 * pow(a_value, 4);
 }
 
 unsigned int ir_sensor_filtered(unsigned int n, float position)
