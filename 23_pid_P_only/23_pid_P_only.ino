@@ -16,14 +16,14 @@
                           // Setting EMA to 1 effectively disables EMA filter.
 
 // Servo adjustment
-#define _DUTY_NEU 1500  // Servo angle: 0 degree
-#define _DUTY_MAX 2500  // Servo angle: D degree
-#define _DUTY_MIN 500   // Servo angle: E degree
-#define _SERVO_ANGLE_DIFF 90 // Replace with |D - E| degree
+#define _DUTY_NEU 1230  // Servo angle: 0 degree
+#define _DUTY_MAX 2300  // Servo angle: D degree
+#define _DUTY_MIN 600   // Servo angle: E degree
+#define _SERVO_ANGLE_DIFF 60 // Replace with |D - E| degree
 #define _SERVO_SPEED 1000 // servo speed limit (unit: degree/second)
 
 // PID parameters
-#define _KP 0 // proportional gain
+#define _KP 4.8 // proportional gain
 //#define _KI 0 // derivative gain
 //#define _KD 0 // integral gain
 
@@ -86,13 +86,13 @@ void loop()
     event_dist = false;
     
     // Get a distance reading from the distance sensor
-    dist_filtered = volt_to_distance(ir_sensor_filtered(n, 0.5));
+    dist_filtered = volt_to_distance(ir_sensor_filtered(10, 0.5));
     dist_ema = _EMA_ALPHA * dist_ema + (1.0 - _EMA_ALPHA) * dist_filtered;
 
     // Update PID control variables
-    error_curr = ??;
-    pterm = ??;
-    control = ??;
+    error_curr = dist_target - dist_ema;
+    pterm = _KP * error_curr;
+    control = pterm;
     duty_target = _DUTY_NEU + control;
 
     if(error_curr > 0) digitalWrite(PIN_LED, 1);
@@ -137,7 +137,7 @@ void loop()
 
 float volt_to_distance(int a_value)
 {
-  return (6762.0 / (a_value - 9) - 4.0) * 10.0; // Replace this with the equation obtained from nonlinear regression analysis
+  return 457 + 0.0939 * a_value - 0.0087 * pow(a_value, 2) + 0.0000217 * pow(a_value, 3) - 0.0000000157 * pow(a_value, 4);// Replace this with the equation obtained from nonlinear regression analysis
 }
 
 unsigned int ir_sensor_filtered(unsigned int n, float position)
