@@ -77,7 +77,7 @@ void loop() {
     event_dist = false;
 
     // get a distance reading from the distance sensor
-    dist_filtered = volt_to_distance(ir_sensor_filtered(n, 0.5)); // Replace n with your desired value
+    dist_filtered = volt_to_distance(ir_sensor_filtered(10, 0.5)); // Replace n with your desired value
     dist_ema = _EMA_ALPHA * dist_ema + (1.0 - _EMA_ALPHA) * dist_filtered;
 
     // bang bang control
