@@ -27,8 +27,8 @@
 // PID parameters
 #define _DIST_TARGET 155 // center of the rail (unit: mm)
 #define _KP 3 // proportional gain
-#define _KD 1100 // derivative gain
-#define _KI 20// integral gain
+#define _KD 500 // derivative gain
+#define _KI 25// integral gain
 //#define _ITERM_MAX 0 // uncomment if necessary
 
 //////////////// DO NOT modify below section!! /////////////////////////        
@@ -205,7 +205,7 @@ void loop()
 
 float volt_to_distance(int a_value)
 {
-  return 453 + 0.0939 * a_value - 0.0087 * pow(a_value, 2) + 0.0000217 * pow(a_value, 3) - 0.0000000157 * pow(a_value, 4);// Replace this with the equation obtained from nonlinear regression analysis
+  return 442 + 0.0939 * a_value - 0.0087 * pow(a_value, 2) + 0.0000217 * pow(a_value, 3) - 0.0000000157 * pow(a_value, 4);// Replace this with the equation obtained from nonlinear regression analysis
 }
 
 unsigned int ir_sensor_filtered(unsigned int n, float position)
