@@ -23,7 +23,7 @@
 
 // PID parameters
 #define _KP 12 // proportional gain
-#define _KD 434 // derivative gain
+#define _KD 430 // derivative gain
 //#define _KI 0 // integral gain
 
 // global variables

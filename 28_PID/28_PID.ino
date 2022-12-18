@@ -15,7 +15,7 @@
 ////////////////////////////////////////////////////////////////////////
 
 // EMA filter configuration for the IR distance sensor
-#define _EMA_ALPHA 0.5   // EMA weight of new sample (range: 0 to 1)
+#define _EMA_ALPHA 0.8   // EMA weight of new sample (range: 0 to 1)
 
 // Servo adjustment
 #define _DUTY_NEU 1360
@@ -27,7 +27,7 @@
 // PID parameters
 #define _DIST_TARGET 155 // center of the rail (unit: mm)
 #define _KP 20 // proportional gain
-#define _KD 800 // derivative gain
+#define _KD 435 // derivative gain
 #define _KI 0.0005 // integral gain
 //#define _ITERM_MAX 0 // uncomment if necessary
 
@@ -204,7 +204,7 @@ void loop()
 
 float volt_to_distance(int a_value)
 {
-  return 441 + 0.0939 * a_value - 0.0087 * pow(a_value, 2) + 0.0000217 * pow(a_value, 3) - 0.0000000155 * pow(a_value, 4);// Replace this with the equation obtained from nonlinear regression analysis
+  return 435 + 0.0939 * a_value - 0.0087 * pow(a_value, 2) + 0.0000217 * pow(a_value, 3) - 0.0000000155 * pow(a_value, 4);// Replace this with the equation obtained from nonlinear regression analysis
 }
 
 unsigned int ir_sensor_filtered(unsigned int n, float position)
