@@ -17,13 +17,13 @@
 // Servo adjustment
 #define _DUTY_NEU 1360  // Servo angle: 0 degree
 #define _DUTY_MAX 2100  // Servo angle: D degree
-#define _DUTY_MIN 800   // Servo angle: E degree
+#define _DUTY_MIN 700   // Servo angle: E degree
 #define _SERVO_ANGLE_DIFF 60 // Replace with |D - E| degree
 #define _SERVO_SPEED 300 // servo speed limit (unit: degree/second)
 
 // PID parameters
-#define _KP 8 // proportional gain
-#define _KD 1100 // derivative gain
+#define _KP 12 // proportional gain
+#define _KD 434 // derivative gain
 //#define _KI 0 // integral gain
 
 // global variables
@@ -139,7 +139,7 @@ void loop()
 
 float volt_to_distance(int a_value)
 {
-  return 457 + 0.0939 * a_value - 0.0087 * pow(a_value, 2) + 0.0000217 * pow(a_value, 3) - 0.0000000157 * pow(a_value, 4);// Replace this with the equation obtained from nonlinear regression analysis
+  return 451 + 0.0939 * a_value - 0.0087 * pow(a_value, 2) + 0.0000217 * pow(a_value, 3) - 0.0000000157 * pow(a_value, 4);// Replace this with the equation obtained from nonlinear regression analysis
 }
 
 unsigned int ir_sensor_filtered(unsigned int n, float position)
